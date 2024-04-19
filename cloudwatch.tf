@@ -2,11 +2,13 @@ locals {
   log_prefix = "/aws/OpenSearchService/domains/${var.cluster_name}"
 }
 
+
 resource "aws_cloudwatch_log_group" "opensearch" {
   for_each = { for k, v in var.log_streams_enabled : k => v if v == "true" }
 
   name              = "${local.log_prefix}/${each.key}"
   retention_in_days = 14
+  kms_key_id        = var.encrypt_cloudwatch_logs ? coalsce(var.encrypt_cloudwatch_kms_key_id, var.encrypt_kms_key_id) : null
 }
 
 resource "aws_cloudwatch_log_resource_policy" "allow_logging" {

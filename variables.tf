@@ -151,6 +151,18 @@ variable "encrypt_kms_key_id" {
   default     = ""
 }
 
+variable "encrypt_cloudwatch_logs" {
+  description = "Indicates whether to encrypt the CloudWatch logs."
+  type        = bool
+  default     = false
+}
+
+variable "encrypt_cloudwatch_kms_key_id" {
+  description = "The KMS key ID to encrypt the CloudWatch logs with. If not specified, then it defaults to the key identified in encrypt_kms_key_id."
+  type        = string
+  default     = ""
+}
+
 variable "saml_enabled" {
   description = "Indicates whether to configure SAML for the OpenSearch dashboard."
   type        = bool
