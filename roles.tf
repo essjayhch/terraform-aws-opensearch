@@ -1,5 +1,5 @@
 resource "opensearch_role" "role" {
-  for_each = local.roles
+  for_each = var.manage_role_mappings  ?  local.roles : {}
 
   role_name           = each.key
   description         = try(each.value.description, "")

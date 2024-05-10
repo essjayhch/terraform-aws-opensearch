@@ -1,8 +1,8 @@
 resource "opensearch_roles_mapping" "role_mapping" {
-  for_each = var.manage_role_mappings ? {} : {
+  for_each = var.manage_role_mappings ?  {
     for key, value in local.role_mappings :
     key => value if !contains(["all_access", "security_manager"], key)
-  }
+  } : {}
 
   role_name     = each.key
   description   = try(each.value.description, "")
@@ -17,7 +17,7 @@ resource "opensearch_roles_mapping" "role_mapping" {
 }
 
 resource "opensearch_roles_mapping" "master_user_arn" {
-  for_each = var.advanced_security_options_internal_user_database_enabled && var.manage_role_mappings ? {} : {
+  for_each = var.advanced_security_options_internal_user_database_enabled ? {} : !var.manage_role_mappings ?  {} : {
     for key in ["all_access", "security_manager"] :
     key => try(local.role_mappings[key], {})
   }
