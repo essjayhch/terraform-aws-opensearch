@@ -454,3 +454,9 @@ variable "log_streams_enabled" {
     "AUDIT_LOGS"          = "false"
   }
 }
+
+variable "manage_role_mappings" {
+  description = "Indicates whether to manage role mappings."
+  type        = bool
+  default     = true
+}
