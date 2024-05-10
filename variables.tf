@@ -458,5 +458,5 @@ variable "log_streams_enabled" {
 variable "manage_role_mappings" {
   description = "Indicates whether to manage role mappings."
   type        = bool
-  default     = true
+  default     = false
 }
